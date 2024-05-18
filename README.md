@@ -2,7 +2,7 @@
 ## Big Data Technologies - CIS 4130
 ### Nidhi Shah 
 
-![Seoul Bike Image](Images/seoulbikes.jpeg)
+![Taxi Image](Images/taxi..jpeg)
 
 # Description
 This project is a data solution designed to source, store, and model data from the NYC Open Data Source about For Hire Vehicles. It aims to provide a centralized repository for analyzing and visualizing tip amounts based on trip time, distance, etc. 
@@ -38,7 +38,8 @@ From this data, I am planning to analyze the amount of tips based on trip time a
           + Wave_request_flag: 
               N: 20469302
               Y: 46995
-    + Congestion Surcharge
+    + Congestion Surcharge:
+        ()
 
 Based on the EDA that was performed, the datatype included in this dataset are datetime64[us](4), float64(9), int32(2), int64(1), and object(8). There are the same amount of missing values in the originating_base_num column and the on_scene_datetime column, which could be the result of missing data regarding the base or dispatch company that the taxi was sent from. These values can be missing because the taxis were called directly instead of through an agency. I was even able to print the statistics for the numeric variables after filtering outliers to get a better idea of the data without accounting for outlier data.
 
