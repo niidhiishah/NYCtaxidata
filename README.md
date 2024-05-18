@@ -39,7 +39,7 @@ From this data, I am planning to analyze the amount of tips based on trip time a
               N: 20469302
               Y: 46995
     + Congestion Surcharge:
-        ()
+        ![Congestion](Images/congestion.png)
 
 Based on the EDA that was performed, the datatype included in this dataset are datetime64[us](4), float64(9), int32(2), int64(1), and object(8). There are the same amount of missing values in the originating_base_num column and the on_scene_datetime column, which could be the result of missing data regarding the base or dispatch company that the taxi was sent from. These values can be missing because the taxis were called directly instead of through an agency. I was even able to print the statistics for the numeric variables after filtering outliers to get a better idea of the data without accounting for outlier data.
 
@@ -50,11 +50,12 @@ This data was read from the “/landing” folder and moved to the “/cleaned�
 
   Conclusions and Challenges: 
 
-      This data is now cleaned and ready to be manipulated to find the correlation between tips and         pick-up location. One challenge that I believe I will have in feature engineering is dealing         with categorical values - I’ll need to encode them appropriately for the model. I also think         I will face multicollinearity while handling this data because many factors may affect the           tips a driver receives, and they may be highly correlated with each other. 
+      This data is now cleaned and ready to be manipulated to find the correlation between tips and pick-up location. One challenge that I believe I will have in feature engineering is dealing with categorical values - I’ll need to encode them appropriately for the model. I also think I will face multicollinearity while handling this data because many factors may affect the tips a driver receives, and they may be highly correlated with each other. 
 
 ### Feature Engineering
 To begin feature engineering, we must first understand the columns’ data types (float, integer, string), variable type (continuous or categorical), indexer, and scaler that we will have to complete for each column. Below is the table with those details outlined: 
 
+![features](Images/features.png)
 
 Numerical features such as trip times, fares, and distances were scaled using the StandardScaler from the PySpark ML library to ensure consistent scaling across different features. Categorical features such as location IDs were indexed using StringIndexer to convert them into numerical values for modeling purposes. Additionally, feature vectors were created using VectorAssembler to combine all relevant features into a single vector for model training.
 
@@ -72,13 +73,24 @@ Next, I created visualizations for the NYC Taxi Dataset using Tableau and PySpar
 
 Using PySpark I plotted the actual tips vs the predicted tip amounts, along with the residuals. The code for this is in Appendix D.
 
+![scatterplot](Images/predictedactual.png)
+![residuals](Images/residuals.png)
+
 In this bar chart, we can see the number of taxi trips on each day of the week for weekdays. This gives us insight onto what days are the most popular for taxi rides, therefore we can expect a larger tip sum. 
+
+![bar](Images/Bar.png)
 
 In this pie chart, we see the percentage of tip left by customers for each ride. The key provides insight into which tip percentage each color is, and the number indicated on the pie chart is the dollar amount.
 
+![pie](Images/piechart.png)
+
 This line chart shows the trend in number of taxi trips throughout the year 2021. We can see that there is a steep decrease during January 21 and June 4th, possibly corresponding to bank holidays that occur. 
 
+![line](Images/trendtaxis.png)
+
 This visualization depicts the frequency of rides during each time of day. I built this visualization using the circle bar chart - I used this video as a reference. We can see that there are fewer trips from midnight to sunrise, the most during the 9-12 pm period - I infer that this is because of late-night taxi rides from restaurants, bars, clubs, etc.
+
+![circle](Images/daynight.png)
 
 ## Conclusions 
 In the realm of data science and machine learning, predictive analysis is a powerful tool for extracting insights and making informed decisions. I used a comprehensive process of predictive analysis applied to the NYC Taxi For-Hire Vehicle dataset, specifically focusing on predicting tips received during taxi trips. It started with acquiring the data and moving through exploratory data analysis (EDA), data cleaning, feature engineering, model training, evaluation, data storage, and visualization.
