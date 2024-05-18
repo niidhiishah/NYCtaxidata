@@ -19,10 +19,10 @@ From this data, I am planning to analyze the amount of tips based on trip time a
 
 ### Sourcing and storing the data
 + To begin extracting and collecting the data from the NYC Open Data Source, I used a virtual machine instance to extract the data from the website. I used a curl function to download files from the web and save the output to a folder on the Google Cloud Platform. 
-+ In the "[scripts](Scripts/Gathering)" folder, there is a code snippet that will automate the download from url
++ In the "[scripts](Scripts/Extracting)" folder, there is a code snippet that will automate the download from url
 
 ### Exploratory data analysis
-+ Next, we begin by gathering basic information about the data by performing exploratory data analysis. For the NYC Taxi Data, using the code from Appendix A, the following information was gathered:
++ Next, we begin by gathering basic information about the data by performing exploratory data analysis. For the NYC Taxi Data, using the code below, the following information was gathered:
     +  Number of Observations: 16054495
     +  List of variables, as well as the data type
     +  Number of Missing (null or N/A) fields in the observations:
@@ -41,16 +41,19 @@ From this data, I am planning to analyze the amount of tips based on trip time a
     + Congestion Surcharge:
         ![Congestion](Images/congestion.png)
 
+In the "[scripts](Scripts/EDA.ipynb)" folder, there is a code for the EDA
+
 Based on the EDA that was performed, the datatype included in this dataset are datetime64[us](4), float64(9), int32(2), int64(1), and object(8). There are the same amount of missing values in the originating_base_num column and the on_scene_datetime column, which could be the result of missing data regarding the base or dispatch company that the taxi was sent from. These values can be missing because the taxis were called directly instead of through an agency. I was even able to print the statistics for the numeric variables after filtering outliers to get a better idea of the data without accounting for outlier data.
 
 ### Cleaning
-To clean the data, I used a separate notebook to remove missing data, fill in missing values with averages where appropriate, and drop unnecessary columns (“dispatching_base_num” which was irrelevant to my data). Using the code in Appendix B, the appropriate data types were also applied to all columns (“request_datetime” was converted to a timestamp). 
+To clean the data, I used a separate notebook to remove missing data, fill in missing values with averages where appropriate, and drop unnecessary columns (“dispatching_base_num” which was irrelevant to my data). Using the code, the appropriate data types were also applied to all columns (“request_datetime” was converted to a timestamp). 
 
 This data was read from the “/landing” folder and moved to the “/cleaned” once it was cleaned. 
 
-  Conclusions and Challenges: 
+This is the [code](Scripts/Cleaning.ipynb) for the cleaning.
 
-      This data is now cleaned and ready to be manipulated to find the correlation between tips and pick-up location. One challenge that I believe I will have in feature engineering is dealing with categorical values - I’ll need to encode them appropriately for the model. I also think I will face multicollinearity while handling this data because many factors may affect the tips a driver receives, and they may be highly correlated with each other. 
+  Conclusions and Challenges: 
+    This data is now cleaned and ready to be manipulated to find the correlation between tips and pick-up location. One challenge that I believe I will have in feature engineering is dealing with categorical values - I’ll need to encode them appropriately for the model. I also think I will face multicollinearity while handling this data because many factors may affect the tips a driver receives, and they may be highly correlated with each other. 
 
 ### Feature Engineering
 To begin feature engineering, we must first understand the columns’ data types (float, integer, string), variable type (continuous or categorical), indexer, and scaler that we will have to complete for each column. Below is the table with those details outlined: 
@@ -65,13 +68,15 @@ The RMSE for the test data using the CrossValidator is 0.00852733, which means t
 
 The results of the analysis, including the trained model and data with engineered features, were written to files in Google Cloud Storage. The trained Linear Regression model was saved in the Models/ folder, while the data with engineered features was saved in the Trusted/ folder. The outputs are organized and stored in a structured manner for easy retrieval and further analysis.
 
-This analysis predicted tips based on NYC Taxi For-Hire Vehicle trip records using feature engineering and a Linear Regression model. The code for this section can be found in Appendix C. Challenges encountered during feature engineering included handling missing values, scaling numerical features, and indexing categorical features. However, these challenges were effectively addressed using appropriate techniques from the PySpark ML library. The resulting code is automated and can be scripted for future use or integration into larger data pipelines.
+This analysis predicted tips based on NYC Taxi For-Hire Vehicle trip records using feature engineering and a Linear Regression model. Challenges encountered during feature engineering included handling missing values, scaling numerical features, and indexing categorical features. However, these challenges were effectively addressed using appropriate techniques from the PySpark ML library. The resulting code is automated and can be scripted for future use or integration into larger data pipelines.
+
+The script is [here](Scripts/FeatureEngineering.ipynb)! 
 
 ### Visualizations
 
 Next, I created visualizations for the NYC Taxi Dataset using Tableau and PySpark. Below are some of the visualizations: 
 
-Using PySpark I plotted the actual tips vs the predicted tip amounts, along with the residuals. The code for this is in Appendix D.
+Using PySpark I plotted the actual tips vs the predicted tip amounts, along with the residuals. The code for this is [here](Scripts/Visualizing.ipynb).
 
 ![scatterplot](Images/predictedactual.png)
 ![residuals](Images/residuals.png)
